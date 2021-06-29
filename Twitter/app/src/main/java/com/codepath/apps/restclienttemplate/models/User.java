@@ -3,15 +3,20 @@ package com.codepath.apps.restclienttemplate.models;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.parceler.Parcel;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Parcel
 public class User {
 
-    String name;
-    String screenName;
-    String profileImageUrl;
+    private String name;
+    private String screenName;
+    private String profileImageUrl;
+
+    public User() {
+    }
 
     public static User fromJson(JSONObject jsonObject) throws JSONException {
         User user = new User();

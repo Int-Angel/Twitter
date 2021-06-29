@@ -5,10 +5,18 @@
     tools:context=".TimelineActivity">
     <item
         android:id="@+id/action_logout"
-        android:title="Logout"
-        app:showAsAction="always"
+        android:title="@string/logout"
+        app:showAsAction="never"
         android:orderInCategory="5"
         android:icon="@android:drawable/ic_lock_power_off"
+        />
+
+    <item
+        android:id="@+id/action_compose"
+        android:title="@string/compose"
+        app:showAsAction="always"
+        android:orderInCategory="1"
+        android:icon="@android:drawable/ic_menu_edit"
         />
 
 </menu>

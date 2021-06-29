@@ -16,12 +16,12 @@ import com.codepath.apps.restclienttemplate.models.Tweet;
 
 import java.util.List;
 
-public class TweetsAdapter extends  RecyclerView.Adapter<TweetsAdapter.ViewHolder>{
+public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder> {
 
-    Context context;
-    List<Tweet> tweets;
+    private Context context;
+    private List<Tweet> tweets;
 
-    public TweetsAdapter(Context context, List<Tweet> tweets){
+    public TweetsAdapter(Context context, List<Tweet> tweets) {
         this.context = context;
         this.tweets = tweets;
     }
@@ -43,11 +43,11 @@ public class TweetsAdapter extends  RecyclerView.Adapter<TweetsAdapter.ViewHolde
         return tweets.size();
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder{
+    class ViewHolder extends RecyclerView.ViewHolder {
 
-        ImageView ivProfileImage;
-        TextView tvBody;
-        TextView tvScreenName;
+        private ImageView ivProfileImage;
+        private TextView tvBody;
+        private TextView tvScreenName;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -57,7 +57,7 @@ public class TweetsAdapter extends  RecyclerView.Adapter<TweetsAdapter.ViewHolde
             tvScreenName = itemView.findViewById(R.id.tvScreenName);
         }
 
-        public void bind(Tweet tweet){
+        private void bind(Tweet tweet) {
             tvBody.setText(tweet.getBody());
             tvScreenName.setText(tweet.getUser().getScreenName());
 
