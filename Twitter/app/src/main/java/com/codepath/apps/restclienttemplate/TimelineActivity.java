@@ -6,6 +6,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.codepath.apps.restclienttemplate.adapters.TweetsAdapter;
 import com.codepath.apps.restclienttemplate.models.Tweet;
@@ -62,5 +66,27 @@ public class TimelineActivity extends AppCompatActivity {
                 Log.e(TAG,"onFailure! " + response,throwable);
             }
         });
+    }
+
+    void logout(){
+        //Toast.makeText(TimelineActivity.this,"Logout",Toast.LENGTH_SHORT).show();
+        client.clearAccessToken();
+        finish();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu){
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.timeline, menu);
+
+        MenuItem logoutItem = menu.findItem(R.id.action_logout);
+        logoutItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+                logout();
+                return true;
+            }
+        });
+        return super.onCreateOptionsMenu(menu);
     }
 }
