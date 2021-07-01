@@ -13,11 +13,13 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import com.codepath.apps.restclienttemplate.adapters.TweetsAdapter;
 import com.codepath.apps.restclienttemplate.models.Tweet;
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
@@ -39,6 +41,7 @@ public class TimelineActivity extends AppCompatActivity {
     private List<Tweet> tweets;
     private TweetsAdapter adapter;
     private SwipeRefreshLayout swipeContainer;
+    private FloatingActionButton fab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +51,7 @@ public class TimelineActivity extends AppCompatActivity {
         client = TwitterApp.getRestClient(this);
 
         swipeContainer = findViewById(R.id.srContainer);
-
+        fab = findViewById(R.id.fab);
         rvTweets = findViewById(R.id.rvTweets);
         tweets = new ArrayList<>();
         adapter = new TweetsAdapter(this, tweets);
@@ -67,6 +70,13 @@ public class TimelineActivity extends AppCompatActivity {
             @Override
             public void onRefresh() {
                 fetchTimelineAsync();
+            }
+        });
+
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                composeNewTweet();
             }
         });
     }
@@ -138,10 +148,8 @@ public class TimelineActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull @NotNull MenuItem item) {
-        if (item.getItemId() == R.id.action_compose) {
-            composeNewTweet();
-            return true;
-        } else if (item.getItemId() == R.id.action_logout) {
+
+        if (item.getItemId() == R.id.action_logout) {
             logout();
             return true;
         }

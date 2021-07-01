@@ -11,8 +11,11 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.codepath.apps.restclienttemplate.R;
 import com.codepath.apps.restclienttemplate.models.Tweet;
+
+import org.w3c.dom.Text;
 
 import java.util.List;
 
@@ -59,6 +62,8 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
         private TextView tvBody;
         private TextView tvScreenName;
         private ImageView ivImage;
+        private TextView tvName;
+        private TextView tvTime;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -67,19 +72,27 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
             tvBody = itemView.findViewById(R.id.tvBody);
             tvScreenName = itemView.findViewById(R.id.tvScreenName);
             ivImage = itemView.findViewById(R.id.ivImage);
+            tvName = itemView.findViewById(R.id.tvName);
+            tvTime = itemView.findViewById(R.id.tvTime);
         }
 
         private void bind(Tweet tweet) {
             tvBody.setText(tweet.getBody());
-            tvScreenName.setText(tweet.getUser().getScreenName());
+            tvScreenName.setText(tweet.getUser().getName());
+            tvName.setText("@" + tweet.getUser().getScreenName());
+
+            tvTime.setText("• " + tweet.getRelativeTimeAgo());
 
             Glide.with(context)
                     .load(tweet.getUser().getProfileImageUrl())
+                    .transform(new RoundedCorners(200))
                     .into(ivProfileImage);
 
             if (tweet.getImageUrl() != "") {
+                ivImage.setVisibility(View.VISIBLE);
                 Glide.with(context)
                         .load(tweet.getImageUrl())
+                        .transform(new RoundedCorners(20))
                         .into(ivImage);
             } else {
                 ivImage.setVisibility(View.GONE);

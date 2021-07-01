@@ -24,7 +24,31 @@
         android:layout_marginStart="5dp"
         android:layout_marginTop="0dp"
         android:layout_toEndOf="@+id/ivProfileImage"
+        android:textStyle="bold"
         tools:text="Username" />
+
+    <TextView
+        android:id="@+id/tvName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="0dp"
+        android:layout_toEndOf="@+id/tvScreenName"
+        tools:text="Username"
+        android:textColor="@color/Twitter_dark_gray"
+        />
+
+    <TextView
+        android:id="@+id/tvTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="3dp"
+        android:layout_marginTop="0dp"
+        android:layout_toEndOf="@+id/tvName"
+        tools:text="• 1d"
+        android:textColor="@color/Twitter_dark_gray"/>
 
     <TextView
         android:id="@+id/tvBody"
@@ -48,5 +72,59 @@
         android:layout_marginTop="5dp"
 
         android:layout_toEndOf="@+id/ivProfileImage"
-        tools:srcCompat="@tools:sample/avatars" />
+        tools:srcCompat="@tools:sample/avatars"
+        />
+
+
+    <LinearLayout
+        android:id="@+id/buttons_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@+id/ivImage"
+        android:padding="2dp"
+        android:gravity="center"
+
+
+        >
+
+        <ImageButton
+            android:id="@+id/btnReply"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:tint="@color/Twitter_dark_gray"
+            android:backgroundTint="@android:color/transparent"
+            app:srcCompat="@drawable/vector_compose_dm_fab"
+            android:layout_marginEnd="60dp"/>
+
+        <ImageButton
+            android:id="@+id/btnRetweet"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:tint="@color/Twitter_dark_gray"
+            android:backgroundTint="@android:color/transparent"
+            app:srcCompat="@drawable/button_retweet" />
+
+        <ImageButton
+            android:id="@+id/btnLike"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:tint="@color/Twitter_dark_gray"
+            android:backgroundTint="@android:color/transparent"
+            app:srcCompat="@drawable/button_like"
+            android:layout_marginStart="60dp"/>
+
+    </LinearLayout>
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+
+        android:layout_below="@id/buttons_container"
+        android:layout_marginTop="2dp"
+
+        android:background="@color/Twitter_dark_gray"/>
+
+
 </RelativeLayout>
