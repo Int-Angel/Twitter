@@ -126,47 +126,85 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
             }
         }
 
-        private void reTweet(){
-            Toast.makeText(context,"ReTweet!",Toast.LENGTH_SHORT).show();
-            btnRetweet.setSelected(true);
-            client.reTweet(tweetBinded.getId(), new JsonHttpResponseHandler() {
-                @Override
-                public void onSuccess(int statusCode, Headers headers, JSON json) {
-                    Log.i(TAG, "onSuccess ReTweet!");
-                    tweets.get(getAdapterPosition()).setRetweeted(true);
-                    notifyItemChanged(getAdapterPosition());
-                }
+        private void reTweet() {
 
-                @Override
-                public void onFailure(int statusCode, Headers headers, String response, Throwable throwable) {
-                    Log.e(TAG, "ReTweet Failed!", throwable);
-                }
-            });
+            if (!tweetBinded.isRetweeted()) {
+                Toast.makeText(context, "ReTweet!", Toast.LENGTH_SHORT).show();
+                btnRetweet.setSelected(true);
+                client.reTweet(tweetBinded.getId(), new JsonHttpResponseHandler() {
+                    @Override
+                    public void onSuccess(int statusCode, Headers headers, JSON json) {
+                        Log.i(TAG, "onSuccess ReTweet!");
+                        tweets.get(getAdapterPosition()).setRetweeted(true);
+                        notifyItemChanged(getAdapterPosition());
+                    }
+
+                    @Override
+                    public void onFailure(int statusCode, Headers headers, String response, Throwable throwable) {
+                        Log.e(TAG, "ReTweet Failed!", throwable);
+                    }
+                });
+            } else {
+                Toast.makeText(context,"unreTweet!",Toast.LENGTH_SHORT).show();
+                btnRetweet.setSelected(false);
+                client.unreTweet(tweetBinded.getId(), new JsonHttpResponseHandler() {
+                    @Override
+                    public void onSuccess(int statusCode, Headers headers, JSON json) {
+                        Log.i(TAG, "onSuccess unreTweet!");
+                        tweets.get(getAdapterPosition()).setRetweeted(false);
+                        notifyItemChanged(getAdapterPosition());
+                    }
+
+                    @Override
+                    public void onFailure(int statusCode, Headers headers, String response, Throwable throwable) {
+                        Log.e(TAG, "unRrTweet Failed!", throwable);
+                    }
+                });
+            }
+
         }
 
-        private void like(){
-            Toast.makeText(context,"Like!",Toast.LENGTH_SHORT).show();
-            btnLike.setSelected(true);
-            client.likeTweet(tweetBinded.getId(), new JsonHttpResponseHandler() {
-                @Override
-                public void onSuccess(int statusCode, Headers headers, JSON json) {
-                    Log.i(TAG, "onSuccess Like!");
-                    tweets.get(getAdapterPosition()).setFavorited(true);
-                    notifyItemChanged(getAdapterPosition());
-                }
+        private void like() {
+            if(!tweetBinded.isFavorited()){
+                Toast.makeText(context, "Like!", Toast.LENGTH_SHORT).show();
+                btnLike.setSelected(true);
+                client.likeTweet(tweetBinded.getId(), new JsonHttpResponseHandler() {
+                    @Override
+                    public void onSuccess(int statusCode, Headers headers, JSON json) {
+                        Log.i(TAG, "onSuccess Like!");
+                        tweets.get(getAdapterPosition()).setFavorited(true);
+                        notifyItemChanged(getAdapterPosition());
+                    }
 
-                @Override
-                public void onFailure(int statusCode, Headers headers, String response, Throwable throwable) {
-                    Log.e(TAG, "ReTweet Failed!", throwable);
-                }
-            });
+                    @Override
+                    public void onFailure(int statusCode, Headers headers, String response, Throwable throwable) {
+                        Log.e(TAG, "like Failed!", throwable);
+                    }
+                });
+            }else{
+                Toast.makeText(context, "unLike!", Toast.LENGTH_SHORT).show();
+                btnLike.setSelected(true);
+                client.unlikeTweet(tweetBinded.getId(), new JsonHttpResponseHandler() {
+                    @Override
+                    public void onSuccess(int statusCode, Headers headers, JSON json) {
+                        Log.i(TAG, "onSuccess unLike!");
+                        tweets.get(getAdapterPosition()).setFavorited(false);
+                        notifyItemChanged(getAdapterPosition());
+                    }
+
+                    @Override
+                    public void onFailure(int statusCode, Headers headers, String response, Throwable throwable) {
+                        Log.e(TAG, "unlike Failed!", throwable);
+                    }
+                });
+            }
         }
 
-        private void reply(){
-            Toast.makeText(context,"Reply!",Toast.LENGTH_SHORT).show();
+        private void reply() {
+            Toast.makeText(context, "Reply!", Toast.LENGTH_SHORT).show();
         }
 
-        private void setOnClickListeners(){
+        private void setOnClickListeners() {
             btnReply.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
