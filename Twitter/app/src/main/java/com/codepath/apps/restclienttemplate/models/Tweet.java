@@ -16,7 +16,7 @@ import java.util.Locale;
 @Parcel
 public class Tweet {
 
-    private static  final String TAG = "TweetModel";
+    private static final String TAG = "TweetModel";
 
     private static final int SECOND_MILLIS = 1000;
     private static final int MINUTE_MILLIS = 60 * SECOND_MILLIS;
@@ -27,6 +27,9 @@ public class Tweet {
     private String createdAt;
     private User user;
     private String embebedUrl;
+    private Long id;
+    private boolean retweeted;
+    private boolean favorited;
 
     public Tweet() {
     }
@@ -37,6 +40,10 @@ public class Tweet {
         tweet.body = jsonObject.getString("text");
         tweet.createdAt = jsonObject.getString("created_at");
         tweet.user = User.fromJson(jsonObject.getJSONObject("user"));
+        tweet.id = jsonObject.getLong("id");
+
+        tweet.retweeted = jsonObject.getBoolean("retweeted");
+        tweet.favorited = jsonObject.getBoolean("favorited");
 
         try {
             tweet.embebedUrl = jsonObject
@@ -106,5 +113,25 @@ public class Tweet {
 
     public String getImageUrl() {
         return embebedUrl;
+    }
+
+    public boolean isRetweeted() {
+        return retweeted;
+    }
+
+    public boolean isFavorited() {
+        return favorited;
+    }
+
+    public Long getId(){
+        return id;
+    }
+
+    public void setRetweeted(boolean retweeted) {
+        this.retweeted = retweeted;
+    }
+
+    public void setFavorited(boolean favorited) {
+        this.favorited = favorited;
     }
 }

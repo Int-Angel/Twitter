@@ -8,12 +8,13 @@
 
             parent="Theme.AppCompat.Light.DarkActionBar"
 
+                    <item name="android:colorBackground">@color/Twitter_black</item>
+                    <item name="android:windowBackground">@color/Twitter_black</item>
+                    <item name="android:background">@color/Twitter_black</item>
 
         -->
-
-        <item name="android:background">@color/Twitter_black</item>
-        <item name="android:windowBackground">@color/Twitter_black</item>
         <item name="android:colorBackground">@color/Twitter_black</item>
+
         <item name="android:colorAccent">@color/Twitter_blue</item>
         <item name="android:textColor">@color/Twitter_white</item>
     </style>
