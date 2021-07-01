@@ -1,6 +1,7 @@
 package com.codepath.apps.restclienttemplate.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,11 +18,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.codepath.apps.restclienttemplate.R;
+import com.codepath.apps.restclienttemplate.TweetDetailActivity;
 import com.codepath.apps.restclienttemplate.TwitterApp;
 import com.codepath.apps.restclienttemplate.TwitterClient;
 import com.codepath.apps.restclienttemplate.models.Tweet;
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
 
+import org.parceler.Parcels;
 import org.w3c.dom.Text;
 
 import java.util.List;
@@ -69,7 +72,7 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
         notifyDataSetChanged();
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder {
+    class ViewHolder extends RecyclerView.ViewHolder implements  View.OnClickListener{
 
         private Tweet tweetBinded;
         private ImageView ivProfileImage;
@@ -96,6 +99,7 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
             btnLike = itemView.findViewById(R.id.btnLike);
 
             setOnClickListeners();
+            itemView.setOnClickListener(this);
         }
 
         private void bind(Tweet tweet) {
@@ -115,7 +119,7 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
                     .transform(new RoundedCorners(200))
                     .into(ivProfileImage);
 
-            if (tweet.getImageUrl() != "") {
+            if (!tweet.getImageUrl().equals("")) {
                 ivImage.setVisibility(View.VISIBLE);
                 Glide.with(context)
                         .load(tweet.getImageUrl())
@@ -127,7 +131,6 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
         }
 
         private void reTweet() {
-
             if (!tweetBinded.isRetweeted()) {
                 Toast.makeText(context, "ReTweet!", Toast.LENGTH_SHORT).show();
                 btnRetweet.setSelected(true);
@@ -183,7 +186,7 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
                 });
             }else{
                 Toast.makeText(context, "unLike!", Toast.LENGTH_SHORT).show();
-                btnLike.setSelected(true);
+                btnLike.setSelected(false);
                 client.unlikeTweet(tweetBinded.getId(), new JsonHttpResponseHandler() {
                     @Override
                     public void onSuccess(int statusCode, Headers headers, JSON json) {
@@ -225,6 +228,20 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
                     like();
                 }
             });
+        }
+
+        private void openDetails(){
+            int position =  getAdapterPosition();
+            if(position != RecyclerView.NO_POSITION){
+                Intent intent = new Intent(context, TweetDetailActivity.class);
+                intent.putExtra("tweet", Parcels.wrap(tweets.get(position)));
+                context.startActivity(intent);
+            }
+        }
+
+        @Override
+        public void onClick(View view) {
+            openDetails();
         }
     }
 }

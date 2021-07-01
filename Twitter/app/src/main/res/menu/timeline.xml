@@ -8,7 +8,6 @@
         android:title="@string/logout"
         app:showAsAction="never"
         android:orderInCategory="5"
-        android:icon="@android:drawable/ic_lock_power_off"
         />
 
 </menu>

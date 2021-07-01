@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".TweetDetailActivity">
+
+
+    <ImageView
+        android:id="@+id/ivProfileImage_details"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <TextView
+        android:id="@+id/tvScreenName_details"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_toEndOf="@+id/ivProfileImage_details"
+        android:textStyle="bold"
+        tools:text="Username" />
+
+    <TextView
+        android:id="@+id/tvName_details"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="3dp"
+        android:layout_below="@+id/tvScreenName_details"
+        android:layout_toEndOf="@+id/ivProfileImage_details"
+        tools:text="Username"
+        android:textColor="@color/Twitter_dark_gray"
+        />
+
+    <TextView
+        android:id="@+id/tvBody_details"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:layout_below="@+id/tvName_details"
+
+        android:layout_marginTop="25dp"
+        android:textSize="20sp"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
+        tools:text="This is my Tweet!!!" />
+
+    <ImageView
+        android:id="@+id/ivImage_details"
+        android:layout_width="240dp"
+        android:layout_height="240dp"
+        android:layout_below="@+id/tvBody_details"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="5dp"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <TextView
+        android:id="@+id/tvTime_details"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="3dp"
+        android:layout_below="@+id/ivImage_details"
+
+        tools:text="8:43 am"
+        android:textColor="@color/Twitter_dark_gray"
+        />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+
+        android:layout_below="@id/tvTime_details"
+        android:layout_marginTop="2dp"
+
+        android:background="@color/Twitter_dark_gray"/>
+
+    <LinearLayout
+        android:id="@+id/buttons_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@+id/tvTime_details"
+        android:padding="2dp"
+        android:gravity="center"
+        >
+
+        <ImageButton
+            android:id="@+id/btnReply_details"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:tint="@color/Twitter_dark_gray"
+            android:backgroundTint="@android:color/transparent"
+            app:srcCompat="@drawable/vector_compose_dm_fab"
+            android:layout_marginEnd="60dp"/>
+
+        <ImageButton
+            android:id="@+id/btnRetweet_details"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:tint="@color/Twitter_dark_gray"
+            android:backgroundTint="@android:color/transparent"
+            app:srcCompat="@drawable/button_retweet" />
+
+        <ImageButton
+            android:id="@+id/btnLike_details"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:tint="@color/Twitter_dark_gray"
+            android:backgroundTint="@android:color/transparent"
+            app:srcCompat="@drawable/button_like"
+            android:layout_marginStart="60dp"/>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+
+        android:layout_below="@id/buttons_container"
+        android:layout_marginTop="2dp"
+
+        android:background="@color/Twitter_dark_gray"/>
+
+</RelativeLayout>
