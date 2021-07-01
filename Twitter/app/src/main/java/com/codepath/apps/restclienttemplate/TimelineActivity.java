@@ -43,6 +43,8 @@ public class TimelineActivity extends AppCompatActivity {
     private SwipeRefreshLayout swipeContainer;
     private FloatingActionButton fab;
 
+    private TweetsAdapter.ReplyInterface replyInterface;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,7 +56,15 @@ public class TimelineActivity extends AppCompatActivity {
         fab = findViewById(R.id.fab);
         rvTweets = findViewById(R.id.rvTweets);
         tweets = new ArrayList<>();
-        adapter = new TweetsAdapter(this, tweets);
+
+        replyInterface = new TweetsAdapter.ReplyInterface() {
+            @Override
+            public void reply(String user) {
+                composeNewTweet(user);
+            }
+        };
+
+        adapter = new TweetsAdapter(this, tweets, replyInterface);
 
         rvTweets.setLayoutManager(new LinearLayoutManager(this));
         rvTweets.setAdapter(adapter);
@@ -76,7 +86,7 @@ public class TimelineActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                composeNewTweet();
+                composeNewTweet("");
             }
         });
     }
@@ -108,9 +118,10 @@ public class TimelineActivity extends AppCompatActivity {
         finish();
     }
 
-    private void composeNewTweet() {
+    private void composeNewTweet(String user) {
         //Toast.makeText(TimelineActivity.this,"Compose New Tweet!!!",Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(this, ComposeActivity.class);
+        intent.putExtra("user",user);
         startActivityForResult(intent, REQUEST_CODE);
     }
 
@@ -167,4 +178,12 @@ public class TimelineActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
     }
 
+    @Override
+    protected void onResume() {
+        /*int pos = getIntent().getIntExtra("position",-1);
+        Toast.makeText(this,"Position: " + pos, Toast.LENGTH_SHORT).show();*/
+        super.onResume();
+        fetchTimelineAsync();
+        //Toast.makeText(this,"OnResumen", Toast.LENGTH_SHORT).show();
+    }
 }

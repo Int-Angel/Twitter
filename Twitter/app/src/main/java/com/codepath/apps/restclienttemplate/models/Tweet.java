@@ -141,7 +141,7 @@ public class Tweet {
         return favorited;
     }
 
-    public Long getId(){
+    public Long getId() {
         return id;
     }
 

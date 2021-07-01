@@ -2,6 +2,7 @@ package com.codepath.apps.restclienttemplate;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -35,6 +36,7 @@ public class TweetDetailActivity extends AppCompatActivity {
     private ImageButton btnLike;
 
     private Tweet tweet;
+    private int position;
     private TwitterClient client;
 
     @Override
@@ -53,6 +55,7 @@ public class TweetDetailActivity extends AppCompatActivity {
         btnLike = findViewById(R.id.btnLike_details);
 
         tweet = Parcels.unwrap(getIntent().getParcelableExtra("tweet"));
+        position = getIntent().getIntExtra("position",-1);
         client = TwitterApp.getRestClient(this);
 
         setOnClickListeners();
@@ -190,4 +193,15 @@ public class TweetDetailActivity extends AppCompatActivity {
             ivImage.setVisibility(View.GONE);
         }
     }
+
+    /*@Override
+    public void onBackPressed() {
+        //super.onBackPressed();
+        Intent intent = new Intent(this, TimelineActivity.class);
+        intent.putExtra("tweet", Parcels.wrap(tweet));
+        intent.putExtra("position", position);
+
+        //startActivity(intent);
+        finish();
+    }*/
 }

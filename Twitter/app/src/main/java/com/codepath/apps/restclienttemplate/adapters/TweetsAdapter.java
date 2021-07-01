@@ -6,7 +6,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -25,7 +24,6 @@ import com.codepath.apps.restclienttemplate.models.Tweet;
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
 
 import org.parceler.Parcels;
-import org.w3c.dom.Text;
 
 import java.util.List;
 
@@ -35,13 +33,19 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
 
     private static final String TAG = "TweetsAdapter";
 
+    public interface ReplyInterface {
+        void reply(String user);
+    }
+
     private Context context;
     private List<Tweet> tweets;
     private TwitterClient client;
+    private ReplyInterface replyInterface;
 
-    public TweetsAdapter(Context context, List<Tweet> tweets) {
+    public TweetsAdapter(Context context, List<Tweet> tweets, ReplyInterface replyInterface) {
         this.context = context;
         this.tweets = tweets;
+        this.replyInterface = replyInterface;
         client = TwitterApp.getRestClient(context);
     }
 
@@ -72,7 +76,8 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
         notifyDataSetChanged();
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder implements  View.OnClickListener{
+    class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+
 
         private Tweet tweetBinded;
         private ImageView ivProfileImage;
@@ -148,7 +153,7 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
                     }
                 });
             } else {
-                Toast.makeText(context,"unreTweet!",Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "unreTweet!", Toast.LENGTH_SHORT).show();
                 btnRetweet.setSelected(false);
                 client.unreTweet(tweetBinded.getId(), new JsonHttpResponseHandler() {
                     @Override
@@ -168,7 +173,7 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
         }
 
         private void like() {
-            if(!tweetBinded.isFavorited()){
+            if (!tweetBinded.isFavorited()) {
                 Toast.makeText(context, "Like!", Toast.LENGTH_SHORT).show();
                 btnLike.setSelected(true);
                 client.likeTweet(tweetBinded.getId(), new JsonHttpResponseHandler() {
@@ -184,7 +189,7 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
                         Log.e(TAG, "like Failed!", throwable);
                     }
                 });
-            }else{
+            } else {
                 Toast.makeText(context, "unLike!", Toast.LENGTH_SHORT).show();
                 btnLike.setSelected(false);
                 client.unlikeTweet(tweetBinded.getId(), new JsonHttpResponseHandler() {
@@ -205,6 +210,7 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
 
         private void reply() {
             Toast.makeText(context, "Reply!", Toast.LENGTH_SHORT).show();
+            replyInterface.reply("@" + tweetBinded.getUser().getScreenName());
         }
 
         private void setOnClickListeners() {
@@ -230,11 +236,12 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
             });
         }
 
-        private void openDetails(){
-            int position =  getAdapterPosition();
-            if(position != RecyclerView.NO_POSITION){
+        private void openDetails() {
+            int position = getAdapterPosition();
+            if (position != RecyclerView.NO_POSITION) {
                 Intent intent = new Intent(context, TweetDetailActivity.class);
                 intent.putExtra("tweet", Parcels.wrap(tweets.get(position)));
+                intent.putExtra("position", getAdapterPosition());
                 context.startActivity(intent);
             }
         }
