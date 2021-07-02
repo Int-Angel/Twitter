@@ -121,7 +121,7 @@ public class TimelineActivity extends AppCompatActivity {
     private void composeNewTweet(String user) {
         //Toast.makeText(TimelineActivity.this,"Compose New Tweet!!!",Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(this, ComposeActivity.class);
-        intent.putExtra("user",user);
+        intent.putExtra("user", user);
         startActivityForResult(intent, REQUEST_CODE);
     }
 

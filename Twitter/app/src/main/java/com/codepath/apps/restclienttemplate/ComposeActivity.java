@@ -25,7 +25,6 @@ public class ComposeActivity extends AppCompatActivity {
 
     private EditText etCompose;
     private Button btnTweet;
-
     private TwitterClient client;
     private String user;
 
@@ -70,8 +69,6 @@ public class ComposeActivity extends AppCompatActivity {
     }
 
     private void publishTweet(String tweetContent) {
-        //Toast.makeText(this, "Tweet", Toast.LENGTH_SHORT).show();
-
         client.publishTweet(tweetContent, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Headers headers, JSON json) {
@@ -84,6 +81,7 @@ public class ComposeActivity extends AppCompatActivity {
                     intent.putExtra("tweet", Parcels.wrap(tweet));
                     setResult(RESULT_OK, intent);
                     finish();
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

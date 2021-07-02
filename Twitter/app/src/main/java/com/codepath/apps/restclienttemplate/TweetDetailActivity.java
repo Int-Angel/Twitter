@@ -55,7 +55,7 @@ public class TweetDetailActivity extends AppCompatActivity {
         btnLike = findViewById(R.id.btnLike_details);
 
         tweet = Parcels.unwrap(getIntent().getParcelableExtra("tweet"));
-        position = getIntent().getIntExtra("position",-1);
+        position = getIntent().getIntExtra("position", -1);
         client = TwitterApp.getRestClient(this);
 
         setOnClickListeners();
@@ -70,8 +70,6 @@ public class TweetDetailActivity extends AppCompatActivity {
                 @Override
                 public void onSuccess(int statusCode, Headers headers, JSON json) {
                     Log.i(TAG, "onSuccess ReTweet!");
-                    //tweets.get(getAdapterPosition()).setRetweeted(true);
-                    //notifyItemChanged(getAdapterPosition());
                     tweet.setRetweeted(true);
                 }
 
@@ -87,8 +85,6 @@ public class TweetDetailActivity extends AppCompatActivity {
                 @Override
                 public void onSuccess(int statusCode, Headers headers, JSON json) {
                     Log.i(TAG, "onSuccess unreTweet!");
-                    //tweets.get(getAdapterPosition()).setRetweeted(false);
-                    //notifyItemChanged(getAdapterPosition());
                     tweet.setRetweeted(false);
                 }
 
@@ -109,8 +105,6 @@ public class TweetDetailActivity extends AppCompatActivity {
                 @Override
                 public void onSuccess(int statusCode, Headers headers, JSON json) {
                     Log.i(TAG, "onSuccess Like!");
-                    //tweets.get(getAdapterPosition()).setFavorited(true);
-                    //notifyItemChanged(getAdapterPosition());
                     tweet.setFavorited(true);
                 }
 
@@ -126,8 +120,6 @@ public class TweetDetailActivity extends AppCompatActivity {
                 @Override
                 public void onSuccess(int statusCode, Headers headers, JSON json) {
                     Log.i(TAG, "onSuccess unLike!");
-                    //tweets.get(getAdapterPosition()).setFavorited(false);
-                    //notifyItemChanged(getAdapterPosition());
                     tweet.setFavorited(false);
                 }
 
@@ -171,7 +163,6 @@ public class TweetDetailActivity extends AppCompatActivity {
         tvScreenName.setText(tweet.getUser().getName());
         tvName.setText("@" + tweet.getUser().getScreenName());
 
-        //tvTime.setText("• " + tweet.getRelativeTimeAgo());
         tvTime.setText(tweet.getRelativeTimeAgo2());
 
         btnLike.setSelected(tweet.isFavorited());
@@ -194,14 +185,4 @@ public class TweetDetailActivity extends AppCompatActivity {
         }
     }
 
-    /*@Override
-    public void onBackPressed() {
-        //super.onBackPressed();
-        Intent intent = new Intent(this, TimelineActivity.class);
-        intent.putExtra("tweet", Parcels.wrap(tweet));
-        intent.putExtra("position", position);
-
-        //startActivity(intent);
-        finish();
-    }*/
 }

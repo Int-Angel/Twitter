@@ -13,10 +13,10 @@
                     <item name="android:background">@color/Twitter_black</item>
 
         -->
-        <item name="android:colorBackground">@color/Twitter_black</item>
+
+        <item name="android:colorBackground">@color/Twitter_white</item>
         <item name="android:colorAccent">@color/Twitter_blue</item>
         <item name="android:textColor">@color/Twitter_white</item>
-        <item name="android:actionMenuTextColor">@color/Twitter_black</item>
 
     </style>
 
@@ -26,7 +26,7 @@
     </style>
 
     <style name="counterText">
-        <item name="android:textColor">#aa5353cc</item>
+        <item name="android:textColor">@color/Twitter_white</item>
     </style>
 
     <style name="counterOverride">

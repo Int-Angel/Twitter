@@ -5,7 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ComposeActivity">
+    tools:context=".ComposeActivity"
+    >
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tiCompose"
@@ -14,7 +15,8 @@
         app:counterEnabled="true"
         app:counterMaxLength="280"
         app:counterTextAppearance="@style/counterText"
-        app:counterOverflowTextAppearance="@style/counterOverride">
+        app:counterOverflowTextAppearance="@style/counterOverride"
+        >
 
         <EditText
             android:id="@+id/etCompose"
@@ -28,7 +30,8 @@
             android:gravity="start|top"
             android:hint="@string/what_s_happening"
             android:inputType="textMultiLine"
-            android:minLines="5" />
+            android:minLines="5"
+            />
 
     </com.google.android.material.textfield.TextInputLayout>
 

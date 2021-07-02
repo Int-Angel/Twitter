@@ -78,7 +78,6 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
 
     class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-
         private Tweet tweetBinded;
         private ImageView ivProfileImage;
         private TextView tvBody;
